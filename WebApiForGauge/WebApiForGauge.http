@@ -1,0 +1,6 @@
+@WebApiForGauge_HostAddress = http://localhost:5078
+
+GET {{WebApiForGauge_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
