@@ -20,7 +20,6 @@ namespace WebApiForGauge.Controllers
         public async Task<IActionResult> CheckUserExist([FromBody] User request)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.PhoneNumber == request.PhoneNumber);
-
             if (user != null) return Ok();
             else return NotFound();
         }
