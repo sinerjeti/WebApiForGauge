@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -17,6 +18,7 @@ namespace WebApiForGauge.Migrations
                 {
                     PhoneNumber = table.Column<string>(type: "text", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
+                    Birthday = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Password = table.Column<string>(type: "text", nullable: false),
                     Features = table.Column<List<string>>(type: "text[]", nullable: false)
                 },

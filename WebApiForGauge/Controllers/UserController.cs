@@ -2,6 +2,8 @@
 using WebApiForGauge.Database;
 using WebApiForGauge.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace WebApiForGauge.Controllers
 {
@@ -16,8 +18,8 @@ namespace WebApiForGauge.Controllers
             _context = context;
         }
         
-        [HttpGet("checkuserexist")]
-        public async Task<IActionResult> CheckUserExist([FromBody] User request)
+        [HttpPost("checkuserexist")]
+        public async Task<IActionResult> CheckUserExist([FromBody] PhoneNumberRequestDTO request)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.PhoneNumber == request.PhoneNumber);
             if (user != null) return Ok();
@@ -29,7 +31,7 @@ namespace WebApiForGauge.Controllers
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.PhoneNumber == request.PhoneNumber);
 
-            if (user != null && user.Password == request.Password) return Ok();
+            if (BCrypt.Net.BCrypt.Verify(request.Password, user?.Password)) return Ok();
             else return BadRequest();
         }
 
@@ -38,6 +40,7 @@ namespace WebApiForGauge.Controllers
         {   
             var user = new User
             {
+                Birthday = request.Birthday,
                 Email = request.Email,
                 PhoneNumber = request.PhoneNumber,
                 Password = BCrypt.Net.BCrypt.HashPassword(request.Password)
