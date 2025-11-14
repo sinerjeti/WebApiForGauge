@@ -1,9 +1,11 @@
-﻿namespace WebApiForGauge.Models
+﻿
+namespace WebApiForGauge.Models
 {
     public class RegisterUserDTO
     {
         public string Username { get; set; } = string.Empty;
-        public int Password { get; set; } = 0;
+        public string PhoneNumber { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
         public DateTime Birthday { get; set; } = DateTime.MinValue;
     }
 }

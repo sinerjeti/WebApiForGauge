@@ -27,7 +27,7 @@ namespace WebApiForGauge.Controllers
         }
 
         [HttpPost("checkpassword")]
-        public async Task<IActionResult> CheckPassword([FromBody] User request)
+        public async Task<IActionResult> CheckPassword([FromBody] CheckPasswordRequestDTO request)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.PhoneNumber == request.PhoneNumber);
 
@@ -36,12 +36,11 @@ namespace WebApiForGauge.Controllers
         }
 
         [HttpPost("createuser")]
-        public async Task<IActionResult> CreateUser([FromBody] User request)
+        public async Task<IActionResult> CreateUser([FromBody] RegisterUserDTO request)
         {   
             var user = new User
             {
                 Birthday = request.Birthday,
-                Email = request.Email,
                 PhoneNumber = request.PhoneNumber,
                 Password = BCrypt.Net.BCrypt.HashPassword(request.Password)
             };
