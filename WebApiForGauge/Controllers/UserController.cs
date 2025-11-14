@@ -26,7 +26,7 @@ namespace WebApiForGauge.Controllers
             else return NotFound();
         }
 
-        [HttpGet("checkpassword")]
+        [HttpPost("checkpassword")]
         public async Task<IActionResult> CheckPassword([FromBody] User request)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.PhoneNumber == request.PhoneNumber);
