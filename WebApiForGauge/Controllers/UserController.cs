@@ -4,6 +4,7 @@ using WebApiForGauge.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Globalization;
 
 namespace WebApiForGauge.Controllers
 {
@@ -51,7 +52,7 @@ namespace WebApiForGauge.Controllers
                 Username = request.Username,
                 PhoneNumber = request.PhoneNumber,
                 Password = BCrypt.Net.BCrypt.HashPassword(request.Password),
-                Birthday = DateTime.Parse(request.Birthday)
+                Birthday = DateTime.ParseExact(request.Birthday, "dd.MM.YYYY", CultureInfo.CurrentCulture)
             };
 
             await _context.Users.AddAsync(user);
