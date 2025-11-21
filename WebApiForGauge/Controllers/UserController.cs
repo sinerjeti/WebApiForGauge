@@ -40,6 +40,7 @@ namespace WebApiForGauge.Controllers
         {   
             var user = new User
             {
+                Username = request.Username,
                 Birthday = request.Birthday,
                 PhoneNumber = request.PhoneNumber,
                 Password = BCrypt.Net.BCrypt.HashPassword(request.Password)
