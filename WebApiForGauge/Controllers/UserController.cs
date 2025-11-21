@@ -26,6 +26,14 @@ namespace WebApiForGauge.Controllers
             else return NotFound();
         }
 
+        [HttpPost("checkusername")]
+        public async Task<IActionResult> CheckUsername([FromBody] CheckUsernameDTO request)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == request.Username);
+            if (user == null) return Ok();
+            else return BadRequest();
+        }
+
         [HttpPost("checkpassword")]
         public async Task<IActionResult> CheckPassword([FromBody] CheckPasswordRequestDTO request)
         {
@@ -37,17 +45,18 @@ namespace WebApiForGauge.Controllers
 
         [HttpPost("createuser")]
         public async Task<IActionResult> CreateUser([FromBody] RegisterUserDTO request)
-        {   
+        {
             var user = new User
             {
                 Username = request.Username,
                 PhoneNumber = request.PhoneNumber,
-                Password = BCrypt.Net.BCrypt.HashPassword(request.Password)
+                Password = BCrypt.Net.BCrypt.HashPassword(request.Password),
+                Birthday = DateTime.Parse(request.Birthday)
             };
 
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
-            return Ok();
+            return Created();
         }
         
         [HttpDelete("deleteuser")]
@@ -56,7 +65,7 @@ namespace WebApiForGauge.Controllers
             var user = _context.Users.FirstOrDefault(u => u.PhoneNumber == request.PhoneNumber);
             if (user != null) _context.Users.Remove(user);
             await _context.SaveChangesAsync();
-            return Ok();
+            return NoContent();
         }
     }
 }
