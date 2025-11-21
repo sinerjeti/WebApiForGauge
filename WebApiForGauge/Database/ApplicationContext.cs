@@ -15,6 +15,9 @@ namespace WebApiForGauge.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<User>()
+                .Property(u => u.Birthday)
+                .HasColumnType("date");
         }
     }
 }
