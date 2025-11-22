@@ -6,6 +6,6 @@ namespace WebApiForGauge.Models
         public string Username { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
-        public DateOnly Birthday { get; set; }
+        public string Birthday { get; set; } = string.Empty;
     }
 }

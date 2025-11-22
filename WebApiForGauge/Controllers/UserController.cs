@@ -52,7 +52,7 @@ namespace WebApiForGauge.Controllers
                 Username = request.Username,
                 PhoneNumber = request.PhoneNumber,
                 Password = BCrypt.Net.BCrypt.HashPassword(request.Password),
-                Birthday = request.Birthday
+                Birthday = DateOnly.ParseExact(request.Birthday, "d", CultureInfo.GetCultureInfo("ru-RU"))
             };
 
             await _context.Users.AddAsync(user);
